@@ -1,11 +1,19 @@
 from itertools import combinations
-from utils import time_algorithm
+from utils import benchmark
 
+"""
+    This function is slower than the one below
+"""
+# def is_vertex_cover(graph, vertices):
+#     return all([u in vertices or v in vertices for u, v in graph.edges()])
 
 def is_vertex_cover(graph, vertices):
-    return all([u in vertices or v in vertices for u, v in graph.edges()])
+    for u, v in graph.edges():
+        if u not in vertices and v not in vertices:
+            return False
+    return True
 
-@time_algorithm
+@benchmark
 def bruteforce(graph):
    cover = set()
    operation_count = 0 # Initialize operation counter
@@ -22,7 +30,7 @@ def bruteforce(graph):
    return cover, operation_count # Return operation count
 
 
-@time_algorithm
+@benchmark
 def bruteforce_bitwise(graph):
    cover = set()
    operation_count = 0 # Initialize operation counter
@@ -43,21 +51,21 @@ def bruteforce_bitwise(graph):
 
 
 
-@time_algorithm
+@benchmark
 def greedy_vertex_cover(graph):
-   cover = set()
-   operation_count = 0 # Initialize operation counter
+    cover = set()
+    operation_count = 0 # Initialize operation counter
 
-   # As long as there are edges in the graph
-   while graph.number_of_edges() > 0:
-       operation_count += 1 # Increment operation counter for each edge check
-       # Select the vertex with the highest degree
-       v = max(graph.degree, key=lambda x: x[1])[0]
-       operation_count += 1 # Increment operation counter for each vertex selection
+    # As long as there are edges in the graph
+    while graph.number_of_edges() > 0:
+        operation_count += 1  # Increment operation counter for each edge check
+        # Select the vertex with the highest degree
+        v = max(graph.degree, key=lambda x: x[1])[0]
+        operation_count += 1  # Increment operation counter for each vertex selection
 
-       # Add the vertex to the cover and remove it from the graph
-       cover.add(v)
-       graph.remove_node(v)
-       operation_count += 2 # Increment operation counter for each addition and removal
+        # Add the vertex to the cover and remove it from the graph
+        cover.add(v)
+        graph.remove_node(v)
+        operation_count += 2  # Increment operation counter for each addition and removal
 
-   return cover, operation_count # Return operation count
+    return cover, operation_count # Return operation count
