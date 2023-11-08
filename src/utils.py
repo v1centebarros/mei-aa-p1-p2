@@ -8,10 +8,8 @@ logging.basicConfig(level=logging.INFO, format='%(asctime)s %(levelname)s %(mess
 log = logging.getLogger(__name__)
 
 MAXIMUM_NUMBER_EDGES = [0.125, 0.25, 0.5, 0.75]
-
-GRAPH_SIZES = [10,50,100,200,300,400,500,600,700,800,900,1000]
-
 SEED = 97787
+SIZES = 256
 
 
 Result = namedtuple('Result', ['function','result', 'operations','time'])
@@ -25,7 +23,7 @@ def generate_all_graphs():
     all_graphs = {}
     for maximum_number_edges in MAXIMUM_NUMBER_EDGES:
         all_graphs[maximum_number_edges] = {}
-        for size in range(1,29):
+        for size in range(1,SIZES):
             G = generate_random_graph(SEED, size, maximum_number_edges)
             all_graphs[maximum_number_edges][size] = G
     return all_graphs
