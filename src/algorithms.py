@@ -1,14 +1,6 @@
 from itertools import combinations
 from utils import benchmark
 
-"""
-    This function is slower than the one below
-"""
-
-
-# def is_vertex_cover(graph, vertices):
-#     return all([u in vertices or v in vertices for u, v in graph.edges()])
-
 def is_vertex_cover(graph, vertices):
     operation_count = 0  # Initialize operation counter
     for u, v in graph.edges():
@@ -36,30 +28,6 @@ def bruteforce(graph):
                     cover = set(vertices)
 
     return cover, operation_count  # Return operation count
-
-
-@benchmark
-def bruteforce_bitwise(graph):
-    """
-        :deprecated: This function is deprecated because it is slower than bruteforce
-    """
-    cover = set()
-    operation_count = 0  # Initialize operation counter
-
-    # Iterate over all possible subsets of vertices
-    for i in range(1, 2 ** len(graph.nodes())):
-        vertices = set()
-        for j in range(len(graph.nodes())):
-            operation_count += 1  # Increment operation counter for each bitwise operation
-            if i & (1 << j):
-                vertices.add(j)
-        if is_vertex_cover(graph, vertices):
-            operation_count += 1  # Increment operation counter for each check
-            if len(cover) == 0 or len(vertices) < len(cover):
-                cover = set(vertices)
-
-    return cover, operation_count  # Return operation count
-
 
 @benchmark
 def greedy_vertex_cover(graph):
