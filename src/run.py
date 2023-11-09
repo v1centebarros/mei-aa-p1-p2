@@ -1,6 +1,6 @@
 from collections import defaultdict
 
-from algorithms import bruteforce, bruteforce_bitwise, greedy_vertex_cover
+from algorithms import bruteforce, greedy_vertex_cover
 from utils import MAXIMUM_NUMBER_EDGES, SEED, log
 import pickle
 
@@ -13,9 +13,9 @@ def run(algorithm,name):
             log.info(f"Running {name} algorithm for graph with size {size}, seed {SEED} and maximum number of edges {max_edges}")
             results[max_edges][size] = algorithm(graphs[max_edges][size])
             log.info(f"Finished running {name} algorithm for graph with size {size}, seed {SEED} and maximum number of edges {max_edges}")
-    
+
     pickle.dump(results, open(f"results/results_complete_{name}.pickle", "wb"))
-   
+
 
 if __name__ == "__main__":
-    run(bruteforce,"bruteforce")
+    run(bruteforce,"burteforce_full")

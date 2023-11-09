@@ -11,8 +11,7 @@ MAXIMUM_NUMBER_EDGES = [0.125, 0.25, 0.5, 0.75]
 SEED = 97787
 SIZES = 256
 
-
-Result = namedtuple('Result', ['function','result', 'operations','time'])
+Result = namedtuple('Result', ['function', 'result', 'operations', 'time'])
 
 
 def generate_random_graph(seed=SEED, size=10, maximum_number_edges=0.8):
@@ -23,7 +22,7 @@ def generate_all_graphs():
     all_graphs = {}
     for maximum_number_edges in MAXIMUM_NUMBER_EDGES:
         all_graphs[maximum_number_edges] = {}
-        for size in range(1,SIZES):
+        for size in range(1, SIZES):
             G = generate_random_graph(SEED, size, maximum_number_edges)
             all_graphs[maximum_number_edges][size] = G
     return all_graphs
@@ -38,6 +37,7 @@ def draw_graph(graph):
     nx.draw(graph, with_labels=True)
     plt.show()
 
+
 def benchmark(func):
     def wrapper(*args, **kwargs):
         start = time()
@@ -47,3 +47,20 @@ def benchmark(func):
         return Result(func.__name__, result, operations, end - start)
 
     return wrapper
+
+
+def import_data(file):
+    return pickle.load(open(f"{file}", "rb"))
+
+
+def convert_to_json(data, path):
+    new_data = {}
+    for size in data.keys():
+        new_data[size] = {}
+        for max_edges in data[size].keys():
+            new_data[size][max_edges] = {}
+            new_data[size][max_edges]["operations"] = data[size][max_edges].operations
+            new_data[size][max_edges]["time"] = data[size][max_edges].time
+            new_data[size][max_edges]["result"] = list(data[size][max_edges].result)
+
+    json.dump(new_data, open(path, "w"), indent=4)

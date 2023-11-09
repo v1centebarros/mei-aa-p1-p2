@@ -1,6 +1,7 @@
 from itertools import combinations
 from utils import benchmark
 
+
 def is_vertex_cover(graph, vertices):
     operation_count = 0  # Initialize operation counter
     for u, v in graph.edges():
@@ -28,6 +29,7 @@ def bruteforce(graph):
                     cover = set(vertices)
 
     return cover, operation_count  # Return operation count
+
 
 @benchmark
 def greedy_vertex_cover(graph):
