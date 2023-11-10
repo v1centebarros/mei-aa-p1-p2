@@ -12,7 +12,7 @@ MAXIMUM_NUMBER_EDGES = [0.125, 0.25, 0.5, 0.75]
 SEED = 97787
 SIZES = 256
 
-Result = namedtuple('Result', ['function', 'result', 'operations', 'time'])
+Result = namedtuple('Result', ['function', 'result', 'operations', 'time', 'solution_counter'])
 
 
 def generate_random_graph(seed=SEED, size=10, maximum_number_edges=0.8):
@@ -42,10 +42,10 @@ def draw_graph(graph):
 def benchmark(func):
     def wrapper(*args, **kwargs):
         start = time()
-        result, operations = func(*args, **kwargs)
+        result, operations,solution_counter = func(*args, **kwargs)
         end = time()
 
-        return Result(func.__name__, result, operations, end - start)
+        return Result(func.__name__, result, operations, end - start,solution_counter)
 
     return wrapper
 
@@ -63,6 +63,7 @@ def convert_to_json(data, path):
             new_data[size][max_edges]["operations"] = data[size][max_edges].operations
             new_data[size][max_edges]["time"] = data[size][max_edges].time
             new_data[size][max_edges]["result"] = list(data[size][max_edges].result)
+            new_data[size][max_edges]["solution_counter"] = data[size][max_edges].solution_counter
 
     json.dump(new_data, open(path, "w"), indent=4)
 

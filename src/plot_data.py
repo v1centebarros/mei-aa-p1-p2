@@ -1,3 +1,5 @@
+from pprint import pprint
+
 from matplotlib import pyplot as plt
 from utils import MAXIMUM_NUMBER_EDGES, import_data
 
@@ -6,7 +8,7 @@ def plot_number_operations_vs_number_of_vertices(results, name, log=False, save=
     for max_edges in MAXIMUM_NUMBER_EDGES:
         x = []
         y = []
-        for size in range(1, 29):
+        for size in range(4, 256):
             x.append(size)
             y.append(results[max_edges][size].operations)
         if log:
@@ -47,13 +49,14 @@ def plot_time_vs_number_of_vertices(results, name, log=False, save=False, show=F
 
 
 def main():
-    bruteforce_data = import_data("../results/results_complete_bruteforce_full.pickle")
-    greedy_data = import_data("../results/results_complete_greedy_256.pickle")
+    # bruteforce_data = import_data("../results/results_complete_bruteforce_full.pickle")
+    greedy_data = import_data("../results/results_complete_greedy_full_2.pickle")
+    pprint(greedy_data)
     # plot_number_operations_vs_number_of_vertices(bruteforce_data, "bruteforce", log=True, show=True)
     # plot_time_vs_number_of_vertices(bruteforce_data, "bruteforce", log=True, show=True)
 
-    # plot_number_operations_vs_number_of_vertices(greedy_data, "greedy", log=True, show=True)
-    # plot_time_vs_number_of_vertices(greedy_data, "greedy", log=True, show=True)
+    plot_number_operations_vs_number_of_vertices(greedy_data, "greedy", log=True, show=True)
+    plot_time_vs_number_of_vertices(greedy_data, "greedy", log=True, show=True)
 
 
 if __name__ == "__main__":
