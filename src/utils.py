@@ -69,5 +69,5 @@ def convert_to_json(data, path):
 
 
 if __name__ == "__main__":
-    convert_to_json(import_data("../results/results_complete_greedy_full.pickle"),
-                    "../results/results_complete_greedy_full.json")
+    convert_to_json(import_data("../results/results_complete_bruteforce_full.pickle"),
+                    "../results/results_complete_bruteforce_full.json")
