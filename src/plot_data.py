@@ -8,7 +8,7 @@ def plot_number_operations_vs_number_of_vertices(results, name, log=False, save=
     for max_edges in MAXIMUM_NUMBER_EDGES:
         x = []
         y = []
-        for size in range(4, 29):
+        for size in range(4, 256):
             x.append(size)
             y.append(results[max_edges][size].operations)
         if log:
@@ -32,7 +32,7 @@ def plot_time_vs_number_of_vertices(results, name, log=False, save=False, show=F
     for max_edges in MAXIMUM_NUMBER_EDGES:
         x = []
         y = []
-        for size in range(4, 28):
+        for size in range(4, 256):
             x.append(size)
             y.append(results[max_edges][size].time)
         if log:
@@ -55,7 +55,7 @@ def plot_number_of_solutions_tested_vs_graph_size(results, name, log=False, save
     for max_edges in MAXIMUM_NUMBER_EDGES:
         x = []
         y = []
-        for size in range(4, 28):
+        for size in range(4, 256):
             x.append(size)
             y.append(results[max_edges][size].solution_counter)
         if log:
@@ -82,9 +82,9 @@ def main():
     plot_time_vs_number_of_vertices(bruteforce_data, "bruteforce", log=True, save=True)
     plot_number_of_solutions_tested_vs_graph_size(bruteforce_data, "bruteforce", log=True, save=True)
 
-    plot_number_operations_vs_number_of_vertices(greedy_data, "greedy", log=False, show=True)
-    plot_time_vs_number_of_vertices(greedy_data, "greedy", log=False, show=True)
-    plot_number_of_solutions_tested_vs_graph_size(greedy_data, "greedy", log=False, show=True)
+    plot_number_operations_vs_number_of_vertices(greedy_data, "greedy", log=True, save=True)
+    plot_time_vs_number_of_vertices(greedy_data, "greedy", log=True, save=True)
+    plot_number_of_solutions_tested_vs_graph_size(greedy_data, "greedy", log=True, save=True)
 
 
 if __name__ == "__main__":
