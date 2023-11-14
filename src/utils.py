@@ -66,8 +66,3 @@ def convert_to_json(data, path):
             new_data[size][max_edges]["solution_counter"] = data[size][max_edges].solution_counter
 
     json.dump(new_data, open(path, "w"), indent=4)
-
-
-if __name__ == "__main__":
-    convert_to_json(import_data("../results/results_complete_bruteforce_full.pickle"),
-                    "../results/results_complete_bruteforce_full.json")

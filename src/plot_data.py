@@ -76,15 +76,15 @@ def plot_number_of_solutions_tested_vs_graph_size(results, name, log=False, save
 
 
 def main():
-    # bruteforce_data = import_data("../results/results_complete_bruteforce_full.pickle")
+    bruteforce_data = import_data("../results/results_complete_bruteforce_full.pickle")
     greedy_data = import_data("../results/results_complete_greedy_full.pickle")
-    # plot_number_operations_vs_number_of_vertices(bruteforce_data, "bruteforce", log=True, save=True)
-    # plot_time_vs_number_of_vertices(bruteforce_data, "bruteforce", log=True, save=True)
-    # plot_number_of_solutions_tested_vs_graph_size(bruteforce_data, "bruteforce", log=True, save=True)
+    plot_number_operations_vs_number_of_vertices(bruteforce_data, "bruteforce", log=True, save=True)
+    plot_time_vs_number_of_vertices(bruteforce_data, "bruteforce", log=True, save=True)
+    plot_number_of_solutions_tested_vs_graph_size(bruteforce_data, "bruteforce", log=True, save=True)
 
-    # plot_number_operations_vs_number_of_vertices(greedy_data, "greedy", log=False, show=True)
+    plot_number_operations_vs_number_of_vertices(greedy_data, "greedy", log=False, show=True)
     plot_time_vs_number_of_vertices(greedy_data, "greedy", log=False, show=True)
-    # plot_number_of_solutions_tested_vs_graph_size(greedy_data, "greedy", log=False, show=True)
+    plot_number_of_solutions_tested_vs_graph_size(greedy_data, "greedy", log=False, show=True)
 
 
 if __name__ == "__main__":
