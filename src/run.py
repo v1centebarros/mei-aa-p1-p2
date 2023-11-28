@@ -1,6 +1,6 @@
 from collections import defaultdict
 
-from algorithms import bruteforce, greedy_vertex_cover
+from algorithms import *
 from utils import MAXIMUM_NUMBER_EDGES, SEED, log
 import pickle
 
@@ -18,4 +18,4 @@ def run(algorithm,name):
 
 
 if __name__ == "__main__":
-    run(greedy_vertex_cover,"greedy_full")
+    run(local_search_vertex_cover,"local_search_vertex_cover")
