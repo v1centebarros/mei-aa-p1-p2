@@ -31,7 +31,7 @@ def generate_all_graphs():
 
 def save_graphs():
     graphs = generate_all_graphs()
-    pickle.dump(graphs, open(f"results/all_graphs.pickle", "wb"))
+    pickle.dump(graphs, open("graphs/all_graphs.pickle", "wb"))
 
 
 def draw_graph(graph):
@@ -46,6 +46,14 @@ def benchmark(func):
         end = time()
 
         return Result(func.__name__, result, operations, end - start, solution_counter)
+
+    return wrapper
+
+
+def deprecated(func):
+    def wrapper(*args, **kwargs):
+        log.warning(f"{func.__name__} is deprecated")
+        raise DeprecationWarning
 
     return wrapper
 
@@ -75,10 +83,7 @@ def validate_solution(graph, cover):
     return True
 
 
-if __name__ == "__main__":
-    data = import_data("../results/results_complete_random_vertex_cover.pickle")
-    graphs = import_data("../results/all_graphs.pickle")
-
+def validate_all_solutions(graphs, data):
     for max_edges in MAXIMUM_NUMBER_EDGES:
         for size in range(4, 256):
             if not validate_solution(graphs[max_edges][size], data[max_edges][size].result):
@@ -92,3 +97,25 @@ if __name__ == "__main__":
                 print(f"Graph: {graphs[max_edges][size]}")
                 print(f"Valid: {validate_solution(graphs[max_edges][size], data[max_edges][size].result)}")
 
+
+def read_graph_from_txt(filename):
+    # Create an empty graph
+    G = nx.Graph()
+
+    with open(filename, 'r') as file:
+        lines = file.readlines()
+
+        # Skip the first three lines (headers/metadata)
+        for line in lines[4:]:
+            # Split the line into vertices and add an edge to the graph
+            u, v = map(int, line.strip().split())
+            G.add_edge(u, v)
+    return G
+
+
+if __name__ == "__main__":
+    big_graph = read_graph_from_txt("../graphs/SWlargeG.txt")
+    print(big_graph.number_of_nodes())
+    print(big_graph.number_of_edges())
+    # save as pickle
+    pickle.dump(big_graph, open("../graphs/big_graph.pickle", "wb"))
