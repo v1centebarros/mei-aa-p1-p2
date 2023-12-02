@@ -86,16 +86,12 @@ def validate_solution(graph, cover):
 def validate_all_solutions(graphs, data):
     for max_edges in MAXIMUM_NUMBER_EDGES:
         for size in range(4, 256):
-            if not validate_solution(graphs[max_edges][size], data[max_edges][size].result):
-                print(f"Invalid solution for graph with size {size} and maximum number of edges {max_edges}")
-                print(f"Solution: {data[max_edges][size].result}")
-                print(f"Graph: {graphs[max_edges][size]}")
-                print(f"Valid: {validate_solution(graphs[max_edges][size], data[max_edges][size].result)}")
-            else:
+            print(f"Solution: {data[max_edges][size].result}")
+            print(f"Graph: {graphs[max_edges][size]}")
+            if validate_solution(graphs[max_edges][size], data[max_edges][size].result):
                 print(f"Valid solution for graph with size {size} and maximum number of edges {max_edges}")
-                print(f"Solution: {data[max_edges][size].result}")
-                print(f"Graph: {graphs[max_edges][size]}")
-                print(f"Valid: {validate_solution(graphs[max_edges][size], data[max_edges][size].result)}")
+            else:
+                print(f"Invalid solution for graph with size {size} and maximum number of edges {max_edges}")
 
 
 def read_graph_from_txt(filename):
