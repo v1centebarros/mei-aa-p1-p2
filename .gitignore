@@ -176,5 +176,4 @@ pyrightconfig.json
 # End of https://www.toptal.com/developers/gitignore/api/python
 
 _old/
-graphs/big_graph.pickle
-graphs/SWlargeG.txt
+graphs/
