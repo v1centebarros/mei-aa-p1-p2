@@ -9,6 +9,7 @@ logging.basicConfig(level=logging.INFO, format='%(asctime)s %(levelname)s %(mess
 log = logging.getLogger(__name__)
 
 MAXIMUM_NUMBER_EDGES = [0.125, 0.25, 0.5, 0.75]
+NUMBER_OF_ITERATIONS = [100, 500, 1000, 5000, 10000]
 SEED = 97787
 SIZES = 256
 

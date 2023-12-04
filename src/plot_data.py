@@ -1,7 +1,8 @@
+import os
 from pprint import pprint
 
 from matplotlib import pyplot as plt
-from utils import MAXIMUM_NUMBER_EDGES, import_data
+from utils import MAXIMUM_NUMBER_EDGES,NUMBER_OF_ITERATIONS, import_data
 
 
 def plot_number_operations_vs_number_of_vertices(results, name, log=False, save=False, show=False):
@@ -79,19 +80,22 @@ def plot_full_results(results, name, log=False, save=False, show=False):
     plot_time_vs_number_of_vertices(results, name, log=log, show=show, save=save)
     plot_number_of_solutions_tested_vs_graph_size(results, name, log=log, show=show, save=save)
 
-def main():
-    bruteforce_data = import_data("../results/results_complete_bruteforce_full.pickle")
-    greedy_data = import_data("../results/results_complete_greedy_full.pickle")
-    random_data = import_data("../results/results_complete_random_vertex_cover.pickle")
 
-    monte_carlo_data = import_data("../results/results_complete_monte_carlo_vertex_cover.pickle")
-    improved_randomized_data = import_data("../results/results_complete_improved_randomized_vertex_cover.pickle")
-    adaptive_randomized_data = import_data("../results/results_complete_adaptive_randomized_vertex_cover.pickle")
-    adaptative_with_local_search_random_data = import_data("../results/results_complete_adaptative_with_local_search_random_vertex_cover.pickle")
-    # plot_full_results(bruteforce_data, "bruteforce", log=True, save=True)
-    # plot_full_results(greedy_data, "greedy", log=True, save=True)
-    # plot_full_results(random_data, "random", log=True, save=True)
-    # plot_full_results(monte_carlo_data, "monte_carlo", log=True, save=True)
-    plot_full_results(adaptative_with_local_search_random_data, "adaptative_with_local_search_random", log=True, show=True)
+def main():
+    # Open all the files that start with results_adaptive_randomized_vertex_cover
+    files = [f for f in os.listdir("../results") if f.startswith("results_adaptive_randomized_vertex_cover")]
+    # Load all the files
+    results = [import_data(f"../results/{file}") for file in files]
+    # Plot all the files
+    for i, result in zip(NUMBER_OF_ITERATIONS,results):
+        plot_full_results(result, f"adaptive_randomized_{i}", log=True, save=True)
+
+    files = [f for f in os.listdir("../results") if f.startswith("results_random_vertex_cover")]
+
+    results = [import_data(f"../results/{file}") for file in files]
+    for i, result in zip(NUMBER_OF_ITERATIONS, results):
+        plot_full_results(result, f"random_{i}", log=True, save=True)
+
+
 if __name__ == "__main__":
     main()
