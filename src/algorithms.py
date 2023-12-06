@@ -71,21 +71,52 @@ def randomized_vertex_cover(graph, iterations=1000):
     operations_count = 0
     solution_counter = 0
     total_vertices = len(graph.nodes())
+    checked_subsets = set()  # To track already checked subsets
 
-    # Start with a larger subset and decrease the size over iterations
     for i in range(iterations):
-        # Gradually decrease the subset size, ensuring it's always at least 1
         subset_size = max(1, ceil(total_vertices * (1 - i / iterations)))
         random_subset = random.sample(graph.nodes(), subset_size)
         operations_count += 1
 
-        is_cover, additional_ops = is_vertex_cover(graph, random_subset)
-        operations_count += additional_ops
+        subset_key = frozenset(random_subset)  # Immutable set as a key
+        if subset_key not in checked_subsets:
+            solution_counter += 1
+            operations_count += 1
+            checked_subsets.add(subset_key)
+            is_cover, additional_ops = is_vertex_cover(graph, random_subset)
+            operations_count += additional_ops
 
-        if is_cover and (best_cover is None or len(random_subset) < len(best_cover)):
+            if is_cover and (not best_cover or len(random_subset) < len(best_cover)):
+                operations_count += 1
+                best_cover = set(random_subset)
+
+    return best_cover, operations_count, solution_counter
+
+
+@benchmark
+def randomized_vertex_cover_min(graph, iterations=1000):
+    best_cover = None
+    operations_count = 0
+    solution_counter = 0
+    total_vertices = len(graph.nodes())
+    checked_subsets = set()
+
+    for i in range(iterations):
+        subset_size = min(total_vertices, ceil((i + 1) / iterations * total_vertices))
+        random_subset = random.sample(graph.nodes(), subset_size)
+        operations_count += 1
+
+        subset_key = frozenset(random_subset)
+        if subset_key not in checked_subsets:
             operations_count += 1
             solution_counter += 1
-            best_cover = set(random_subset)
+            checked_subsets.add(subset_key)
+            is_cover, additional_ops = is_vertex_cover(graph, random_subset)
+            operations_count += additional_ops
+
+            if is_cover and (not best_cover or len(random_subset) < len(best_cover)):
+                operations_count += 1
+                best_cover = set(random_subset)
 
     return best_cover, operations_count, solution_counter
 
@@ -96,33 +127,34 @@ def adaptive_randomized_vertex_cover(graph, iterations=1000, improvement_thresho
     operations_count = 0
     solution_counter = 0
     total_vertices = len(graph.nodes())
-
-    # Parameters for adaptive sizing
     last_improvement = 0
     subset_size = total_vertices
+    checked_subsets = set()
 
     for i in range(iterations):
         random_subset = random.sample(graph.nodes(), subset_size)
         operations_count += 1
 
-        is_cover, additional_ops = is_vertex_cover(graph, random_subset)
-        operations_count += additional_ops
-
-        if is_cover:
+        subset_key = frozenset(random_subset)
+        if subset_key not in checked_subsets:
             operations_count += 1
             solution_counter += 1
-            if not best_cover or len(random_subset) < len(best_cover):
+            checked_subsets.add(subset_key)
+            is_cover, additional_ops = is_vertex_cover(graph, random_subset)
+            operations_count += additional_ops
+
+            if is_cover:
                 operations_count += 1
-                best_cover = set(random_subset)
-                last_improvement = i  # Update the last improvement iteration
-            elif i - last_improvement > improvement_threshold:
+                if not best_cover or len(random_subset) < len(best_cover):
+                    operations_count += 1
+                    best_cover = set(random_subset)
+                    last_improvement = i
+                elif i - last_improvement > improvement_threshold:
+                    operations_count += 1
+                    subset_size = max(1, subset_size - 2)
+                    last_improvement = i
+            else:
                 operations_count += 1
-                # Decrease the subset size more aggressively if no recent improvements
-                subset_size = max(1, subset_size - 2)
-                last_improvement = i  # Reset improvement counter
-        else:
-            # Slightly decrease subset size over time
-            operations_count += 1
-            subset_size = max(1, subset_size - 1)
+                subset_size = max(1, subset_size - 1)
 
     return best_cover, operations_count, solution_counter

@@ -1,8 +1,8 @@
 from collections import defaultdict
 
-from algorithms import adaptive_randomized_vertex_cover, randomized_vertex_cover, greedy_vertex_cover, bruteforce
+from algorithms import randomized_vertex_cover_min, randomized_vertex_cover, adaptive_randomized_vertex_cover
 from utils import MAXIMUM_NUMBER_EDGES, NUMBER_OF_ITERATIONS, SEED, log
-import pickle, os
+import pickle
 
 graphs = pickle.load(open("../graphs/all_graphs.pickle", "rb"))
 
@@ -30,8 +30,7 @@ def run_graph(algorithm, name, graph):
 
 
 def marathon():
-    for algorithm, name in [(randomized_vertex_cover, "random_vertex_cover"),
-                            (adaptive_randomized_vertex_cover, "adaptive_randomized_vertex_cover")]:
+    for algorithm, name in [(adaptive_randomized_vertex_cover, "adaptive_randomized_vertex_cover")]:
         for max_iterations in NUMBER_OF_ITERATIONS:
             results = defaultdict(dict)
             for max_edges in MAXIMUM_NUMBER_EDGES:
@@ -46,4 +45,5 @@ def marathon():
 
 
 if __name__ == "__main__":
+    # read graph from picle
     marathon()

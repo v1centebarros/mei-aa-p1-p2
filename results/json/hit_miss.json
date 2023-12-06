@@ -1,0 +1,112 @@
+{
+    "results_randomized_vertex_cover_min_10000.pickle": [
+        20,
+        84,
+        0.19230769230769232
+    ],
+    "results_randomized_vertex_cover_1000.pickle": [
+        16,
+        88,
+        0.15384615384615385
+    ],
+    "results_randomized_vertex_cover_min_500.pickle": [
+        19,
+        85,
+        0.18269230769230768
+    ],
+    "results_adaptive_randomized_vertex_cover_1000.pickle": [
+        0,
+        104,
+        0.0
+    ],
+    "results_randomized_vertex_cover_10000.pickle": [
+        23,
+        81,
+        0.22115384615384615
+    ],
+    "results_randomized_vertex_cover_500.pickle": [
+        17,
+        87,
+        0.16346153846153846
+    ],
+    "results_random_vertex_cover_100.pickle": [
+        17,
+        87,
+        0.16346153846153846
+    ],
+    "results_randomized_vertex_cover_5000.pickle": [
+        22,
+        82,
+        0.21153846153846154
+    ],
+    "results_random_vertex_cover_5000.pickle": [
+        22,
+        82,
+        0.21153846153846154
+    ],
+    "results_complete_greedy_full.pickle": [
+        56,
+        48,
+        0.5384615384615384
+    ],
+    "results_random_vertex_cover_500.pickle": [
+        15,
+        89,
+        0.14423076923076922
+    ],
+    "results_randomized_vertex_cover_min_1000.pickle": [
+        18,
+        86,
+        0.17307692307692307
+    ],
+    "results_complete_bruteforce_full.pickle": [
+        104,
+        0,
+        1.0
+    ],
+    "results_adaptive_randomized_vertex_cover_5000.pickle": [
+        0,
+        104,
+        0.0
+    ],
+    "results_adaptive_randomized_vertex_cover_500.pickle": [
+        0,
+        104,
+        0.0
+    ],
+    "results_randomized_vertex_cover_100.pickle": [
+        13,
+        91,
+        0.125
+    ],
+    "results_adaptive_randomized_vertex_cover_10000.pickle": [
+        0,
+        104,
+        0.0
+    ],
+    "results_adaptive_randomized_vertex_cover_100.pickle": [
+        0,
+        104,
+        0.0
+    ],
+    "results_random_vertex_cover_1000.pickle": [
+        21,
+        83,
+        0.20192307692307693
+    ],
+    "results_randomized_vertex_cover_min_100.pickle": [
+        15,
+        89,
+        0.14423076923076922
+    ],
+    "results_random_vertex_cover_10000.pickle": [
+        26,
+        78,
+        0.25
+    ],
+    "results_randomized_vertex_cover_min_5000.pickle": [
+        21,
+        83,
+        0.20192307692307693
+    ]
+}
